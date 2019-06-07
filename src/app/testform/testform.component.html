@@ -1,0 +1,19 @@
+<h2>Dynamic Form <button (click)="add()">Add</button></h2>
+
+<form [formGroup]="formdata" (ngSubmit)="doSave()">
+    <label>FirstName</label>
+    <input type="text" name="firstName" formControlName="firstName"><br>
+    <span *ngIf="!formdata.get('firstName').valid && formdata.get('firstName').touched">Enter First Name</span><br>
+    <label>Mobile No</label>
+    <input type="text" name="mobile" formControlName="mobile"><br>
+    <span *ngIf="!formdata.get('mobile').valid && formdata.get('mobile').touched">Enter Mobile No</span><br>
+    <div formArrayName="items">
+        <div *ngFor="let phone of formArr.controls; let i=index" [formGroupName]="i">
+            <label>Address</label>
+            <input type="text" name="address" formControlName="address"><br>
+            <span *ngIf="!phone.get('address').valid && phone.get('address').touched">Enter Address</span>
+            <button (click)="remove(i)">Remove</button>
+          </div>
+    </div>    
+    <input type="submit" value="Submit">
+</form>
